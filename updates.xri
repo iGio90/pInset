@@ -6,17 +6,16 @@
       </p>
    </description>
    <platform os="all" arch="noarch" version="1.8.9:1.9.99">
-      <package fileName="pInset-1.0.0.zip" sha1="4a03255a3cd1356ca50732fe88952cb5a2063af2"
+      <package fileName="pInset-1.1.0.zip" sha1="a55c26693b6a4d785841fc81210f199406184559"
                type="script" releaseDate="20251218">
          <title>
-            pInset 1.0.0
+            pInset 1.1.0
          </title>
          <description>
             <p>Create zoomed inset overlays on astronomical images. Select a region of interest, 
             scale it up, and composite it onto the original image with customizable borders and positioning.</p>
-            <h3>Release 1.0.0</h3>
+            <h3>Release 1.1.0</h3>
             <ul>
-               <li>Initial release</li>
                <li>Circular and rectangular inset shapes</li>
                <li>Customizable zoom, borders, and positioning</li>
                <li>Connection lines and source indicators</li>
