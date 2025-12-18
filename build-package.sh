@@ -6,7 +6,7 @@
 set -e
 
 VERSION=${1:-"1.0.0"}
-DATE=$(date +%Y-%m-%d)
+DATE=$(date +%Y%m%d)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "Building pInset package version $VERSION..."
@@ -19,32 +19,41 @@ mkdir -p "$PACKAGE_DIR/pInset/lib"
 cp "$SCRIPT_DIR/pInset.js" "$PACKAGE_DIR/pInset/"
 cp "$SCRIPT_DIR/lib/"*.js "$PACKAGE_DIR/pInset/lib/"
 
-# Create repository directory if it doesn't exist
-mkdir -p "$SCRIPT_DIR/repository"
-
 # Create the package zip
 cd "$PACKAGE_DIR"
-zip -r "$SCRIPT_DIR/repository/pInset-$VERSION.zip" pInset/
+zip -r "$SCRIPT_DIR/pInset-$VERSION.zip" pInset/
+
+# Calculate SHA1 hash
+SHA1=$(shasum "$SCRIPT_DIR/pInset-$VERSION.zip" | cut -d' ' -f1)
 
 # Update the repository index
-cat > "$SCRIPT_DIR/repository/updates.xri" << EOF
+cat > "$SCRIPT_DIR/updates.xri" << EOF
 <?xml version="1.0" encoding="UTF-8"?>
-<xri version="1.0" xmlns="http://www.pixinsight.com/xri" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.pixinsight.com/xri http://pixinsight.com/xri/xri-1.0.xsd">
-   <Repository>
-      <Name>pInset Repository</Name>
-      <Description>Repository for the pInset PixInsight script - Create beautiful magnified insets on your astrophotography images</Description>
-   </Repository>
-   <Package>
-      <Name>pInset</Name>
-      <Version>${VERSION}</Version>
-      <Type>Script</Type>
-      <Platform>all</Platform>
-      <ReleaseDate>${DATE}</ReleaseDate>
-      <Title>pInset</Title>
-      <Description>Create zoomed inset overlays on astronomical images. Select a region of interest, scale it up, and composite it onto the original image with customizable borders and positioning.</Description>
-      <InstallLocation>scripts</InstallLocation>
-      <PackageLocation>pInset-${VERSION}.zip</PackageLocation>
-   </Package>
+<xri version="1.0">
+   <description>
+      <p>
+        Repository for pInset by Giovanni Rocca (iGio90) - Create beautiful magnified insets on your astrophotography images.
+      </p>
+   </description>
+   <platform os="all" arch="noarch" version="1.8.9:1.9.99">
+      <package fileName="pInset-${VERSION}.zip" sha1="${SHA1}"
+               type="script" releaseDate="${DATE}">
+         <title>
+            pInset ${VERSION}
+         </title>
+         <description>
+            <p>Create zoomed inset overlays on astronomical images. Select a region of interest, 
+            scale it up, and composite it onto the original image with customizable borders and positioning.</p>
+            <h3>Release ${VERSION}</h3>
+            <ul>
+               <li>Circular and rectangular inset shapes</li>
+               <li>Customizable zoom, borders, and positioning</li>
+               <li>Connection lines and source indicators</li>
+               <li>Real-time preview</li>
+            </ul>
+         </description>
+      </package>
+   </platform>
 </xri>
 EOF
 
@@ -53,9 +62,9 @@ rm -rf "$PACKAGE_DIR"
 
 echo ""
 echo "✅ Package built successfully!"
-echo "   - Package: repository/pInset-$VERSION.zip"
-echo "   - Index: repository/updates.xri"
+echo "   - Package: pInset-$VERSION.zip"
+echo "   - SHA1: $SHA1"
+echo "   - Index: updates.xri"
 echo ""
-echo "To deploy:"
-echo "1. Push the repository/ folder to GitHub Pages"
-echo "2. Users can add: https://<username>.github.io/<repo>/updates.xri"
+echo "To deploy, commit and push the / folder."
+echo "Users can add repository: https://raw.githubusercontent.com/igio90/pInset/main"

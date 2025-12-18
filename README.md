@@ -16,7 +16,7 @@ It suggested using GIMP, warning me that creating a PixInsight plugin for this w
 2. Go to `Resources > Updates > Manage Repositories`
 3. Click `Add` and enter:
    ```
-   https://igio90.github.io/pInset/updates.xri
+   https://raw.githubusercontent.com/igio90/pInset/main/
    ```
 4. Go to `Resources > Updates > Check for Updates`
 5. Select **pInset** and click `Apply`
