@@ -10,6 +10,21 @@ It suggested using GIMP, warning me that creating a PixInsight plugin for this w
 
 ## Installation
 
+### Option 1: Via PixInsight Repository (Recommended)
+
+1. Open PixInsight
+2. Go to `Resources > Updates > Manage Repositories`
+3. Click `Add` and enter:
+   ```
+   https://igio90.github.io/pInset/updates.xri
+   ```
+4. Go to `Resources > Updates > Check for Updates`
+5. Select **pInset** and click `Apply`
+
+This method allows automatic updates when new versions are released.
+
+### Option 2: Manual Installation
+
 1.  Download the `pInset.js` file and the `lib` folder.
 2.  Place them in your PixInsight scripts directory:
     *   **macOS**: `~/Library/Application Support/PixInsight/scripts/`
