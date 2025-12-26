@@ -5,23 +5,26 @@
 
 set -e
 
-VERSION=${1:-"1.1.0"}
+VERSION=${1:-"1.1.1"}
 DATE=$(date +%Y%m%d)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "Building pInset package version $VERSION..."
 
+# Remove previous zip files
+rm -f "$SCRIPT_DIR"/pInset-*.zip
+
 # Create temporary package directory
 PACKAGE_DIR=$(mktemp -d)
-mkdir -p "$PACKAGE_DIR/pInset/lib"
+mkdir -p "$PACKAGE_DIR/src/scripts/pInset/lib"
 
 # Copy script files
-cp "$SCRIPT_DIR/pInset.js" "$PACKAGE_DIR/pInset/"
-cp "$SCRIPT_DIR/lib/"*.js "$PACKAGE_DIR/pInset/lib/"
+cp "$SCRIPT_DIR/pInset.js" "$PACKAGE_DIR/src/scripts/pInset/"
+cp "$SCRIPT_DIR/lib/"*.js "$PACKAGE_DIR/src/scripts/pInset/lib/"
 
 # Create the package zip
 cd "$PACKAGE_DIR"
-zip -r "$SCRIPT_DIR/pInset-$VERSION.zip" pInset/
+zip -r "$SCRIPT_DIR/pInset-$VERSION.zip" src/
 
 # Calculate SHA1 hash
 SHA1=$(shasum "$SCRIPT_DIR/pInset-$VERSION.zip" | cut -d' ' -f1)

@@ -12,6 +12,7 @@
 #feature-info Create zoomed inset overlays on astronomical images. \
               Select a region of interest, scale it up, and composite it \
               onto the original image with customizable borders and positioning.
+#feature-icon pInset.xpm
 
 #include <pjsr/Sizer.jsh>
 #include <pjsr/FrameStyle.jsh>
